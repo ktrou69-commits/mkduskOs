@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MK.Dusk OS</title>
+    <link rel="stylesheet" href="mk-dusk-os.css">
+</head>
+<body>
+    <!-- Boot Screen -->
+    <div class="boot-screen" id="bootScreen">
+        <div class="boot-logo">
+            <div class="logo-icon">🌙</div>
+            <div class="logo-text">MK.Dusk OS</div>
+            <div class="version">v1.0.0</div>
+        </div>
+        <div class="boot-progress">
+            <div class="progress-bar">
+                <div class="progress-fill" id="bootProgress"></div>
+            </div>
+            <div class="boot-text" id="bootText">Initializing system...</div>
+        </div>
+    </div>
+
+    <!-- Login Screen -->
+    <div class="login-screen" id="loginScreen" style="display: none;">
+        <div class="login-wallpaper"></div>
+        <div class="login-container">
+            <div class="login-box">
+                <div class="user-avatar">
+                    <div class="avatar-icon">👤</div>
+                </div>
+                <div class="user-name">Administrator</div>
+                <form class="login-form" id="loginForm">
+                    <div class="password-field">
+                        <input type="password" id="passwordInput" placeholder="Enter password" class="password-input" autocomplete="current-password">
+                        <button type="submit" class="login-btn">
+                            <span class="login-icon">→</span>
+                        </button>
+                    </div>
+                    <div class="login-error" id="loginError" style="display: none;">
+                        Incorrect password. Try again.
+                    </div>
+                </form>
+                <div class="login-hint">
+                    Hint: The password is "dusk"
+                </div>
+            </div>
+        </div>
+        <div class="login-footer">
+            <div class="system-info">
+                <div class="time" id="loginTime"></div>
+                <div class="date" id="loginDate"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Desktop -->
+    <div class="desktop" id="desktop" style="display: none;">
+        <!-- Wallpaper -->
+        <div class="desktop-wallpaper"></div>
+        
+        <!-- Desktop Icons -->
+        <div class="desktop-icons">
+            <div class="desktop-icon" data-app="knowledge-trees">
+                <div class="icon">🌳</div>
+                <div class="label">Knowledge Trees</div>
+            </div>
+            <div class="desktop-icon" data-app="file-manager">
+                <div class="icon">📁</div>
+                <div class="label">File Manager</div>
+            </div>
+            <div class="desktop-icon" data-app="settings">
+                <div class="icon">⚙️</div>
+                <div class="label">Settings</div>
+            </div>
+            <div class="desktop-icon" data-app="terminal">
+                <div class="icon">💻</div>
+                <div class="label">Terminal</div>
+            </div>
+            <div class="desktop-icon" data-app="calculator">
+                <div class="icon">🧮</div>
+                <div class="label">Calculator</div>
+            </div>
+            <div class="desktop-icon" data-app="notes">
+                <div class="icon">📝</div>
+                <div class="label">Notes</div>
+            </div>
+        </div>
+
+        <!-- Taskbar -->
+        <div class="taskbar">
+            <div class="taskbar-left">
+                <button class="start-button" id="startButton">
+                    <span class="start-icon">🌙</span>
+                    <span class="start-text">Start</span>
+                </button>
+                <div class="taskbar-apps" id="taskbarApps">
+                    <!-- Running apps will appear here -->
+                </div>
+            </div>
+            <div class="taskbar-right">
+                <div class="system-tray">
+                    <div class="tray-icon" title="Network">📶</div>
+                    <div class="tray-icon" title="Volume">🔊</div>
+                    <div class="tray-icon" title="Battery">🔋</div>
+                </div>
+                <div class="taskbar-clock">
+                    <div class="clock-time" id="taskbarTime"></div>
+                    <div class="clock-date" id="taskbarDate"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Start Menu -->
+        <div class="start-menu" id="startMenu" style="display: none;">
+            <div class="start-menu-header">
+                <div class="user-profile">
+                    <div class="profile-avatar">👤</div>
+                    <div class="profile-info">
+                        <div class="profile-name">Administrator</div>
+                        <div class="profile-status">Online</div>
+                    </div>
+                </div>
+            </div>
+            <div class="start-menu-apps">
+                <div class="app-category">
+                    <div class="category-title">Applications</div>
+                    <div class="app-grid">
+                        <div class="start-app" data-app="knowledge-trees">
+                            <div class="app-icon">🌳</div>
+                            <div class="app-name">Knowledge Trees</div>
+                        </div>
+                        <div class="start-app" data-app="file-manager">
+                            <div class="app-icon">📁</div>
+                            <div class="app-name">File Manager</div>
+                        </div>
+                        <div class="start-app" data-app="settings">
+                            <div class="app-icon">⚙️</div>
+                            <div class="app-name">Settings</div>
+                        </div>
+                        <div class="start-app" data-app="terminal">
+                            <div class="app-icon">💻</div>
+                            <div class="app-name">Terminal</div>
+                        </div>
+                        <div class="start-app" data-app="calculator">
+                            <div class="app-icon">🧮</div>
+                            <div class="app-name">Calculator</div>
+                        </div>
+                        <div class="start-app" data-app="notes">
+                            <div class="app-icon">📝</div>
+                            <div class="app-name">Notes</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="start-menu-footer">
+                <button class="power-button" id="powerButton">
+                    <span class="power-icon">⏻</span>
+                    <span class="power-text">Shutdown</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Windows Container -->
+    <div class="windows-container" id="windowsContainer">
+        <!-- App windows will be created here -->
+    </div>
+
+    <!-- Context Menu -->
+    <div class="context-menu" id="contextMenu" style="display: none;">
+        <div class="context-item" data-action="refresh">
+            <span class="context-icon">🔄</span>
+            <span class="context-text">Refresh</span>
+        </div>
+        <div class="context-item" data-action="new-folder">
+            <span class="context-icon">📁</span>
+            <span class="context-text">New Folder</span>
+        </div>
+        <div class="context-separator"></div>
+        <div class="context-item" data-action="properties">
+            <span class="context-icon">📋</span>
+            <span class="context-text">Properties</span>
+        </div>
+    </div>
+
+    <script src="mk-dusk-os.js"></script>
+</body>
+</html>
