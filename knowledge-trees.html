@@ -3,20 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Библиотека Древ Знаний</title>
+    <title>🌳 Библиотека Древ Знаний</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="app">
-        <!-- Login Screen -->
-        <div class="login-overlay" id="loginOverlay">
-            <div class="login-container">
-                <div class="login-box">
-                    <div class="login-header">
-                        <div class="login-logo">
-                            <div class="logo-icon">🌙</div>
-                            <div class="logo-text">MK.Dusk OS</div>
-                            <div class="logo-subtitle">Knowledge Management System</div>
+    <!-- Login Screen -->
+    <div class="login-overlay" id="loginOverlay">
+        <div class="login-container">
+            <div class="login-box">
+                <div class="login-header">
+                    <div class="login-logo">
+                        <div class="logo-icon">🌙</div>
+                        <div class="logo-text">MK.Dusk OS</div>
+                        <div class="logo-subtitle">Knowledge Management System</div>
+                    </div>
+                </div>
+                
+                <div class="login-form">
+                    <div class="form-group">
+                        <label for="loginPassword">Пароль для входа</label>
+                        <input type="password" id="loginPassword" class="login-input" placeholder="Введите пароль" autocomplete="current-password">
+                    </div>
+                    <button class="login-btn" id="loginBtn">
+                        <span class="login-btn-text">Войти</span>
+                        <span class="login-btn-icon">🔓</span>
+                    </button>
+                    <div class="login-error" id="loginError" style="display: none;">
+                        ❌ Неверный пароль
+                    </div>
+                </div>
+                
+                <div class="login-footer">
+                    <div class="login-hint">
+                        💡 Подсказка: попробуйте стандартный пароль
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="app" id="mainApp" style="display: none;">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="header-left">
+                    <div class="app-title">
+                        <span class="app-icon">🌳</span>
+                        <h1>Knowledge Trees</h1>
+                    </div>
+                </div>
+                <div class="header-actions">
                     <button class="btn btn-primary" id="createItemBtn">
                         <span class="icon">➕</span>
                         <span id="createBtnText">Создать дерево</span>
@@ -36,10 +72,6 @@
                     <button class="btn btn-secondary" id="syncSettingsBtn">
                         <span class="icon">⚙️</span>
                         Синхронизация
-                    </button>
-                    <button class="btn btn-warning" id="debugDataBtn" style="background: orange; color: white;">
-                        <span class="icon">🔍</span>
-                        DEBUG
                     </button>
                     <button class="btn btn-danger" id="bulkDeleteBtn" style="display: none;">
                         <span class="icon">🗑️</span>
@@ -365,6 +397,79 @@
         <button class="notification-close">✕</button>
     </div>
 
-    <script src="app.js"></script>
+    <script>
+        // Система входа с паролем
+        const LOGIN_PASSWORD = 'admin'; // Стандартный пароль
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginOverlay = document.getElementById('loginOverlay');
+            const mainApp = document.getElementById('mainApp');
+            const loginBtn = document.getElementById('loginBtn');
+            const loginPassword = document.getElementById('loginPassword');
+            const loginError = document.getElementById('loginError');
+            
+            // Проверяем, есть ли сохраненная сессия
+            const isLoggedIn = sessionStorage.getItem('knowledgeTreesLoggedIn');
+            if (isLoggedIn === 'true') {
+                showMainApp();
+            }
+            
+            // Обработчик кнопки входа
+            loginBtn.addEventListener('click', handleLogin);
+            
+            // Обработчик Enter в поле пароля
+            loginPassword.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    handleLogin();
+                }
+            });
+            
+            function handleLogin() {
+                const password = loginPassword.value;
+                
+                if (password === LOGIN_PASSWORD) {
+                    // Правильный пароль
+                    sessionStorage.setItem('knowledgeTreesLoggedIn', 'true');
+                    showMainApp();
+                } else {
+                    // Неправильный пароль
+                    showError();
+                }
+            }
+            
+            function showMainApp() {
+                loginOverlay.style.display = 'none';
+                mainApp.style.display = 'block';
+                
+                // Загружаем основное приложение
+                const script = document.createElement('script');
+                script.src = 'app.js';
+                document.head.appendChild(script);
+            }
+            
+            function showError() {
+                loginError.style.display = 'block';
+                loginPassword.value = '';
+                loginPassword.focus();
+                
+                // Анимация тряски
+                const loginBox = document.querySelector('.login-box');
+                loginBox.style.animation = 'shake 0.5s ease-in-out';
+                setTimeout(() => {
+                    loginBox.style.animation = '';
+                }, 500);
+                
+                // Скрываем ошибку через 3 секунды
+                setTimeout(() => {
+                    loginError.style.display = 'none';
+                }, 3000);
+            }
+            
+            // Фокус на поле пароля при загрузке
+            setTimeout(() => {
+                loginPassword.focus();
+            }, 500);
+        });
+    </script>
 </body>
 </html>

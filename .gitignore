@@ -46,3 +46,21 @@ build/
 # Backup files
 *.bak
 *.backup
+
+# Legacy files (optional - remove if you want to track them)
+# legacy/
+
+# Test coverage
+coverage/
+
+# Documentation build
+docs/build/
+
+# IDE specific
+.vscode/settings.json
+.idea/workspace.xml
+
+# OS specific
+*.DS_Store
+.AppleDouble
+.LSOverride

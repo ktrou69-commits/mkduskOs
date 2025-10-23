@@ -3,402 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Библиотека Древ Знаний</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>🌳 Knowledge Trees - Redirect</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .container {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        .icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        h1 {
+            margin: 0 0 1rem 0;
+            font-size: 2rem;
+        }
+        .version-info {
+            margin: 1rem 0;
+            opacity: 0.8;
+        }
+        .buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        .btn-primary {
+            background: rgba(59, 130, 246, 0.8);
+        }
+        .btn-primary:hover {
+            background: rgba(59, 130, 246, 1);
+        }
+        .status {
+            margin-top: 1rem;
+            padding: 0.5rem;
+            background: rgba(16, 185, 129, 0.2);
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+    </style>
 </head>
 <body>
-    <!-- Login Screen -->
-    <div class="login-overlay" id="loginOverlay">
-        <div class="login-container">
-            <div class="login-box">
-                <div class="login-header">
-                    <div class="login-logo">
-                        <div class="logo-icon">🌙</div>
-                        <div class="logo-text">MK.Dusk OS</div>
-                        <div class="logo-subtitle">Knowledge Management System</div>
-                    </div>
-                </div>
-                
-                <div class="login-form-container">
-                    <div class="user-avatar">
-                        <div class="avatar-icon">👤</div>
-                    </div>
-                    <div class="user-name">Administrator</div>
-                    
-                    <form class="login-form" id="loginForm">
-                        <div class="password-field">
-                            <input type="password" id="passwordInput" placeholder="Enter password" class="password-input" autocomplete="current-password">
-                            <button type="submit" class="login-btn">
-                                <span class="login-icon">→</span>
-                            </button>
-                        </div>
-                        <div class="login-error" id="loginError" style="display: none;">
-                            Incorrect password. Try again.
-                        </div>
-                    </form>
-                    
-                    <div class="login-hint">
-                        Hint: The password is "dusk"
-                    </div>
-                </div>
-                
-                <div class="login-footer">
-                    <div class="system-time">
-                        <div class="time" id="loginTime"></div>
-                        <div class="date" id="loginDate"></div>
-                    </div>
-                </div>
-            </div>
+    <div class="container">
+        <div class="icon">🌳</div>
+        <h1>Knowledge Trees</h1>
+        <div class="version-info">
+            <p>Выберите версию для запуска:</p>
         </div>
+        
+        <div class="buttons">
+            <a href="knowledge-trees.html" class="btn btn-primary">
+                🌳 Knowledge Trees (с паролем)
+            </a>
+        </div>
+        
+        <div class="status">
+            🔐 Защищено паролем для безопасности<br>
+            ✅ Оригинальная стабильная версия
+        </div>
+        
+        <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(255, 255, 255, 0.1); border-radius: 10px; font-size: 0.9rem;">
+            <div style="margin-bottom: 0.5rem;"><strong>🔑 Информация для входа:</strong></div>
+            <div>Пароль: <code style="background: rgba(255, 255, 255, 0.2); padding: 2px 6px; border-radius: 4px;">admin</code></div>
+        </div>
+        
     </div>
 
-    <!-- Main Application (hidden until login) -->
-    <div class="app" id="mainApp" style="display: none;">
-        <!-- Header -->
-        <header class="header">
-            <div class="header-content">
-                <h1 class="logo">📚 Архив</h1>
-                <div class="header-actions">
-                    <button class="btn btn-primary" id="createItemBtn">
-                        <span class="icon">➕</span>
-                        <span id="createBtnText">Создать дерево</span>
-                    </button>
-                    <button class="btn btn-secondary" id="importBtn">
-                        <span class="icon">📥</span>
-                        Импорт
-                    </button>
-                    <button class="btn btn-secondary" id="exportCurrentBtn">
-                        <span class="icon">📤</span>
-                        <span id="exportBtnText">Экспорт деревьев</span>
-                    </button>
-                    <button class="btn btn-secondary" id="exportAllBtn">
-                        <span class="icon">📦</span>
-                        Экспорт всех данных
-                    </button>
-                    <button class="btn btn-secondary" id="syncSettingsBtn">
-                        <span class="icon">⚙️</span>
-                        Синхронизация
-                    </button>
-                    <button class="btn btn-warning" id="debugDataBtn" style="background: orange; color: white;">
-                        <span class="icon">🔍</span>
-                        DEBUG
-                    </button>
-                    <button class="btn btn-danger" id="bulkDeleteBtn" style="display: none;">
-                        <span class="icon">🗑️</span>
-                        <span id="bulkDeleteText">Удалить выбранные</span>
-                    </button>
-                    <button class="btn btn-secondary" id="logoutBtn" title="Выйти из системы">
-                        <span class="icon">🚪</span>
-                        <span>Выход</span>
-                    </button>
-                </div>
-            </div>
-        </header>
-
-        <!-- Main Content -->
-        <main class="main">
-            <!-- Sidebar -->
-            <aside class="sidebar">
-                <div class="sidebar-header">
-                    <h3>Архив</h3>
-                    <div class="category-tabs">
-                        <button class="category-tab active" data-category="trees">
-                            <span class="tab-icon">🌳</span>
-                            <span class="tab-label">Деревья знаний</span>
-                        </button>
-                        <button class="category-tab" data-category="notes">
-                            <span class="tab-icon">📝</span>
-                            <span class="tab-label">Заметки</span>
-                        </button>
-                    </div>
-                    <div class="bulk-actions" id="bulkActions" style="display: none;">
-                        <label class="bulk-select-all">
-                            <input type="checkbox" id="selectAllCheckbox">
-                            <span>Выбрать все</span>
-                        </label>
-                    </div>
-                    
-                    <div class="search-box">
-                        <input type="text" id="searchInput" placeholder="Поиск..." class="search-input">
-                        <span class="search-icon">🔍</span>
-                    </div>
-                </div>
-                
-                <div class="trees-list" id="treesList">
-                    <!-- Список деревьев будет загружаться динамически -->
-                </div>
-                
-                <div class="sidebar-footer">
-                    <div class="stats">
-                        <div class="stat-item">
-                            <span class="stat-number" id="totalTrees">0</span>
-                            <span class="stat-label">деревьев</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number" id="totalNodes">0</span>
-                            <span class="stat-label">узлов</span>
-                        </div>
-                    </div>
-                    <button class="btn btn-secondary stats-chart-btn" id="showStatsChart">
-                        <span class="icon">📊</span>
-                        <span>Статистика</span>
-                    </button>
-                </div>
-            </aside>
-
-            <!-- Content Area -->
-            <section class="content">
-                <!-- Welcome Screen -->
-                <div class="welcome-screen" id="welcomeScreen">
-                    <div class="welcome-content">
-                        <div class="welcome-icon">🌳</div>
-                        <h2>Добро пожаловать в Библиотеку Древ Знаний</h2>
-                        <p>Создавайте структурированные деревья знаний для организации информации и идей</p>
-                        <button class="btn btn-primary btn-large" id="createFirstItemBtn">
-                            <span id="createFirstBtnText">Создать первое дерево</span>
-                        </button>
-                        <button class="btn btn-secondary btn-large" id="createSampleBtn" style="margin-top: 1rem;">
-                            <span id="createSampleBtnText">Создать пример дерева</span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Tree Viewer -->
-                <div class="tree-viewer" id="treeViewer" style="display: none;">
-                    <div class="tree-header">
-                        <div class="tree-title">
-                            <h2 id="currentTreeTitle">Название дерева</h2>
-                            <div class="tree-actions">
-                                <button class="btn btn-icon" id="editTreeBtn" title="Редактировать">
-                                    <span class="icon">✏️</span>
-                                </button>
-                                <button class="btn btn-icon" id="deleteTreeBtn" title="Удалить">
-                                    <span class="icon">🗑️</span>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="tree-meta">
-                            <span class="tree-date" id="currentTreeDate">Создано: --</span>
-                            <span class="tree-nodes-count" id="currentTreeNodes">0 узлов</span>
-                        </div>
-                    </div>
-
-                    <div class="tree-content" id="treeContent">
-                        <!-- Дерево будет отображаться здесь -->
-                    </div>
-                </div>
-            </section>
-        </main>
-    </div>
-
-    <!-- Modals -->
-    
-    <!-- Create/Edit Tree Modal -->
-    <div class="modal" id="treeModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 id="treeModalTitle">Создать дерево</h3>
-                <button class="btn btn-icon modal-close" id="closeTreeModal">
-                    <span class="icon">✕</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="treeForm">
-                    <div class="form-group">
-                        <label for="treeName">Название дерева</label>
-                        <input type="text" id="treeName" class="form-input" placeholder="Введите название дерева" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="treeDescription">Описание</label>
-                        <textarea id="treeDescription" class="form-textarea" placeholder="Краткое описание дерева знаний" rows="3"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="treeCategory">Категория</label>
-                        <select id="treeCategory" class="form-select">
-                            <option value="business">Бизнес</option>
-                            <option value="technology">Технологии</option>
-                            <option value="science">Наука</option>
-                            <option value="education">Образование</option>
-                            <option value="personal">Личное развитие</option>
-                            <option value="other">Другое</option>
-                        </select>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" id="cancelTreeBtn">Отмена</button>
-                <button type="submit" form="treeForm" class="btn btn-primary" id="saveTreeBtn">Сохранить</button>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- Statistics Modal -->
-    <div class="modal" id="statsModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>📊 Статистика данных</h3>
-                <button class="btn btn-icon modal-close" id="closeStatsModal">
-                    <span class="icon">✕</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="stats-overview">
-                    <div class="stats-summary">
-                        <div class="summary-item">
-                            <div class="summary-number" id="statsTreesCount">0</div>
-                            <div class="summary-label">🌳 Деревья знаний</div>
-                        </div>
-                        <div class="summary-item">
-                            <div class="summary-number" id="statsNotesCount">0</div>
-                            <div class="summary-label">📝 Заметки</div>
-                        </div>
-                        <div class="summary-item">
-                            <div class="summary-number" id="statsTotalCount">0</div>
-                            <div class="summary-label">📊 Всего элементов</div>
-                        </div>
-                    </div>
-                    
-                    <div class="chart-container">
-                        <canvas id="statsChart" width="300" height="300"></canvas>
-                    </div>
-                    
-                    <div class="stats-details">
-                        <h4>Детальная статистика</h4>
-                        <div class="details-grid">
-                            <div class="detail-item">
-                                <span class="detail-label">Категории деревьев:</span>
-                                <span class="detail-value" id="treeCategoriesCount">0</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-label">Категории заметок:</span>
-                                <span class="detail-value" id="noteCategoriesCount">0</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-label">Создано сегодня:</span>
-                                <span class="detail-value" id="createdTodayCount">0</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-label">Создано на этой неделе:</span>
-                                <span class="detail-value" id="createdWeekCount">0</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary modal-close">Закрыть</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- GitHub Sync Settings Modal -->
-    <div class="modal" id="syncModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>⚙️ Настройки синхронизации GitHub</h3>
-                <button class="btn btn-icon modal-close" id="closeSyncModal">
-                    <span class="icon">✕</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="sync-settings">
-                    <div class="form-group">
-                        <label for="githubToken">GitHub Personal Access Token</label>
-                        <input type="password" id="githubToken" class="form-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
-                        <small class="form-help">
-                            <a href="https://github.com/settings/tokens" target="_blank">Создать токен</a> 
-                            с правами: repo (для приватных репозиториев) или public_repo (для публичных)
-                        </small>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="githubRepo">Репозиторий (username/repository)</label>
-                        <input type="text" id="githubRepo" class="form-input" placeholder="myusername/knowledge-backup">
-                        <small class="form-help">
-                            Репозиторий будет создан автоматически, если не существует
-                        </small>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="syncBranch">Ветка</label>
-                        <input type="text" id="syncBranch" class="form-input" value="main" placeholder="main">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>
-                            <input type="checkbox" id="autoSync">
-                            Автоматическая синхронизация при изменениях
-                        </label>
-                    </div>
-                    
-                    <div class="sync-status" id="syncStatus">
-                        <div class="status-item">
-                            <span class="status-label">Статус:</span>
-                            <span class="status-value" id="connectionStatus">Не настроено</span>
-                        </div>
-                        <div class="status-item">
-                            <span class="status-label">Последняя синхронизация:</span>
-                            <span class="status-value" id="lastSync">Никогда</span>
-                        </div>
-                    </div>
-                    
-                    <div class="sync-actions">
-                        <button class="btn btn-secondary" id="testConnection">
-                            <span class="icon">🔍</span>
-                            Проверить подключение
-                        </button>
-                        <button class="btn btn-primary" id="syncNow">
-                            <span class="icon">🔄</span>
-                            Синхронизировать сейчас
-                        </button>
-                        <button class="btn btn-secondary" id="downloadFromGithub">
-                            <span class="icon">📥</span>
-                            Загрузить с GitHub
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary modal-close">Закрыть</button>
-                <button type="button" class="btn btn-primary" id="saveSyncSettings">Сохранить настройки</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Import Modal -->
-    <div class="modal" id="importModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Импорт данных</h3>
-                <button class="btn btn-icon modal-close" id="closeImportModal">
-                    <span class="icon">✕</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="importFile">Выберите файл JSON</label>
-                    <input type="file" id="importFile" class="form-input" accept=".json">
-                </div>
-                <div class="form-group">
-                    <label for="importText">Или вставьте JSON текст</label>
-                    <textarea id="importText" class="form-textarea" placeholder="Вставьте JSON данные..." rows="8"></textarea>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary modal-close">Закрыть</button>
-                <button type="button" class="btn btn-primary" id="executeImport">Импортировать</button>
-            </div>
-        </div>
-    </div>
-
-        <!-- Notification -->
-        <div class="notification" id="notification">
-            <span class="notification-text"></span>
-            <button class="notification-close">✕</button>
-        </div>
-    </div> <!-- End of mainApp -->
-
-    <script src="app.js"></script>
+    <script>
+        // Автоматическое перенаправление через 5 секунд на Knowledge Trees
+        setTimeout(() => {
+            if (confirm('Перейти к Knowledge Trees?')) {
+                window.location.href = 'knowledge-trees.html';
+            }
+        }, 5000);
+    </script>
 </body>
 </html>
