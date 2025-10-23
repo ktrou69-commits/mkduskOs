@@ -1,0 +1,33 @@
+{
+  "name": "knowledge-trees-app",
+  "version": "1.0.0",
+  "description": "🌳 Full-featured knowledge management app with GitHub sync",
+  "main": "src/js/app.js",
+  "type": "module",
+  "scripts": {
+    "dev": "python3 -m http.server 8080",
+    "test": "echo \"Tests will be added soon\" && exit 0",
+    "build": "echo \"Build process will be added\" && exit 0",
+    "lint": "echo \"Linting will be added\" && exit 0"
+  },
+  "keywords": [
+    "knowledge-management",
+    "trees",
+    "notes",
+    "github-sync",
+    "web-app",
+    "vanilla-js"
+  ],
+  "author": "ktrou69-commits",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ktrou69-commits/mkduskOs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ktrou69-commits/mkduskOs/issues"
+  },
+  "homepage": "https://github.com/ktrou69-commits/mkduskOs#readme",
+  "devDependencies": {},
+  "dependencies": {}
+}
