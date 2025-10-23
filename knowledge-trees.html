@@ -22,12 +22,14 @@
                 <div class="login-form">
                     <div class="form-group">
                         <label for="loginPassword">Пароль для входа</label>
-                        <input type="password" id="loginPassword" class="login-input" placeholder="Введите пароль" autocomplete="current-password">
+                        <div class="login-input-container">
+                            <input type="password" id="loginPassword" class="login-input" placeholder="Введите пароль" autocomplete="current-password">
+                            <button class="login-btn" id="loginBtn">
+                                <span class="login-btn-text">Войти</span>
+                                <span class="login-btn-icon">🔓</span>
+                            </button>
+                        </div>
                     </div>
-                    <button class="login-btn" id="loginBtn">
-                        <span class="login-btn-text">Войти</span>
-                        <span class="login-btn-icon">🔓</span>
-                    </button>
                     <div class="login-error" id="loginError" style="display: none;">
                         ❌ Неверный пароль
                     </div>
@@ -408,11 +410,11 @@
             const loginPassword = document.getElementById('loginPassword');
             const loginError = document.getElementById('loginError');
             
-            // Проверяем, есть ли сохраненная сессия
-            const isLoggedIn = sessionStorage.getItem('knowledgeTreesLoggedIn');
-            if (isLoggedIn === 'true') {
-                showMainApp();
-            }
+            // Всегда показываем экран входа (убираем проверку сессии)
+            // Пароль требуется при каждом обновлении страницы
+            
+            // Очищаем поле пароля при загрузке
+            loginPassword.value = '';
             
             // Обработчик кнопки входа
             loginBtn.addEventListener('click', handleLogin);
@@ -428,8 +430,7 @@
                 const password = loginPassword.value;
                 
                 if (password === LOGIN_PASSWORD) {
-                    // Правильный пароль
-                    sessionStorage.setItem('knowledgeTreesLoggedIn', 'true');
+                    // Правильный пароль - сразу показываем приложение
                     showMainApp();
                 } else {
                     // Неправильный пароль
